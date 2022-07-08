@@ -1,14 +1,22 @@
 #include <stdlib.h>
 
+#include "constants.h"
 #include "particle.h"
 #include "raylib.h"
 
 int main(void) {
-	const int particleCount = 100000;
 	particle *particles = (particle *)malloc(particleCount * sizeof(particle));
+	for (int i = 0; i < particleCount; ++i) {
+		particles[i].position.x = rand() % windowWidth;
+		particles[i].position.y = rand() % windowHeight;
+		particles[i].velocity.x = ((float)rand() - RAND_MAX / 2) / (3 * (float)RAND_MAX);
+		particles[i].velocity.y = ((float)rand() - RAND_MAX / 2) / (3 * (float)RAND_MAX);
+	}
+
 	Vector2 mousePosition;
 
-	InitWindow(800, 800, "Particles");
+	InitWindow(windowWidth, windowHeight, "Particles");
+	SetWindowIcon(LoadImage("icon.png"));
 	SetTargetFPS(60);
 
 	while (!WindowShouldClose()) {
@@ -16,9 +24,16 @@ int main(void) {
 
 		BeginDrawing();
 
-		ClearBackground(RAYWHITE);
+		ClearBackground(WHITE);
 
-		DrawFPS(10, 10);
+		// DrawFPS(10, 10);
+
+		for (int i = 0; i < particleCount; ++i) {
+			DrawPixelV(particles[i].position, BLACK);
+			newVelocity(particles + i, &mousePosition);
+			multiplyVelocity(particles + i, 0.99);
+			move(particles + i);
+		}
 
 		EndDrawing();
 	}

@@ -9,8 +9,8 @@ OPTIMIZATION = -O3
 CFLAGS = -Wall -Wextra -I $(INC_DIR) -c -std=c17 $(OPTIMIZATION)
 LINK_LINUX = -L $(LIB_DIR) -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 # Works also without last two
 LINK_WINDOWS = -L $(LIB_DIR) -lraylib -lopengl32 -lgdi32 -lwinmm
-SRCS = $(SRC_DIR)/main.c
-OBJS = $(OBJ_DIR)/main.o
+SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/particle.c
+OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/particle.o
 
 windows: $(OBJ_DIR)_windows $(OBJS)
 	$(CC) $(OBJS) -o $(EXE) $(OPTIMIZATION) $(LINK_WINDOWS)
