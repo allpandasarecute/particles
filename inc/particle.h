@@ -3,11 +3,9 @@
 
 #include "raylib.h"
 
-typedef struct particle particle;
-
-struct particle {
+typedef struct particle {
 		Vector2 position;
 		Vector2 velocity;
-};
+} particle;
 
 #endif  // PARTICLE_H
